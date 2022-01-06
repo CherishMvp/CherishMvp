@@ -3,6 +3,7 @@
 const mysql = require('mysql');
 const dbConfig = require('./db');
 const sqlMap = require('./sqlMap');
+const router = express.Router();
  
 const pool = mysql.createPool({
   host: dbConfig.mysql.host,
@@ -33,5 +34,26 @@ module.exports = {
         })
     })
   },
+  add(req, res, next) {
+    let userName = req.body.name;
+    let password = req.body.pass;
+    pool.getConnection((err,connection) => {
+        var sql = sqlMap.insertUser;
+        connection.query(sql, [userName, password], (err,result) => {
+            // res.json(result);    // 向前端返回json格式的数据
+            connection.release();
+            let state = {}
+            
+            if(err) {
+              res.send('error')
+            } else {
+              res.redirect('/login')
+            }
+        })
+    })
+  },
+  
+
+  
 }
 

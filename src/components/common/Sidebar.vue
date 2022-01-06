@@ -26,7 +26,7 @@
                 items: [
                     {
                         icon: 'el-icon-setting',
-                        index: 'readme',
+                        index: 'monitor',
                         title: '简介'
                     },
                     {

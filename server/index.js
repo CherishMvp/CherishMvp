@@ -1,26 +1,28 @@
-//index.js----Express服务器入口文件
-
-/*
-server文件夹里的index.js需要用node index.js命令启动监听端口3000，并在项目的config文件夹里的index.js里，为proxyTable加入
-'/api': {
-            target: 'http://127.0.0.1:3000/api/',
-            changeOrigin: true,
-            pathRewrite: {
-                '^/api': ''
-            }
-        }
-*/
-const routerApi = require('./router');
-const bodyParser = require('body-parser'); // post 数据需要
+// node后端服务器
+const http = require('http');
+const badyParser = require('body-parser');
 const express = require('express');
-const app = express();
- 
-app.use(bodyParser.json());
- 
+const userApi = require('./api/userApi');
+const DBHelper = require('./utils/DBHelper');
+
+let conn = new DBHelper().getConn();
+
+let app = express();
+let server = http.createServer(app);
+
+app.use(badyParser.json());
+app.use(badyParser.urlencoded({
+    extended: false
+}));
+
 // 后端api路由
-app.use('/api', routerApi);
- 
-// 监听端口
-app.listen(3000);
-console.log('success listen at port:3000......');
+app.use('/api/user', userApi);
+
+//开启监听方式1
+// app.listen(3000);
+// console.log('success listen at port:3000......');
+// 启动监听方式2 
+server.listen(3000, () => {
+    console.log(' success!! port:3000')
+})
 
