@@ -20,7 +20,15 @@
 6.  2022-01-07 10:27:16
   完善验证码逻辑登录.
   并且通过sessionStorage.setItem('ms_username', this.ruleForm.userName)
-
+7.  2022-01-07 20:09:56
+  1.npm run build 后,上传至云服务器,静态资源不显示问题,
+  见CSDN链接:https://i.csdn.net/#/user-center/collection-list?type=1&folder=12302505&key=4
+  2.路由跳转模式还是hash模式,不是history.
+  3. 步骤: 设置好各个路径后,你npm run build -- 将dist文件夹放在 dist的dist里面--配置nginx代理,设置接口如 api/user{ }要一一对应 --》通过pm2 来管理node服务
+8.  2022-01-07 21:20:09
+  1.注册界面还需美化完善.
+  2.其他监控、反向控制界面还需要完善.()不能只盯着美化界面去做,功能应该先实现.美化后期可以再做.
+  
  -->
 > A Vue.js project
 

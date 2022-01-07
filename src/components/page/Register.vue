@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="crumbs crumbs-register">
+    <div class="crumbs-register">
       <el-breadcrumb separator="/"
                      class="register-title">
         <el-breadcrumb-item><i class="el-icon-setting"></i>注册</el-breadcrumb-item>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import Util from '../../utils/utils'
+// import Util from '../../utils/utils'
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
@@ -222,6 +222,7 @@ export default {
 .userContent {
   width: 400px;
   margin: 0 auto;
+  
 }
 .select-sex {
   width: 320px;

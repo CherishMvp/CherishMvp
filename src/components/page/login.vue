@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="img"> 
     <div class="ms-title">登录管理系统</div>
     <div class="ms-login">
 
@@ -181,9 +181,9 @@ export default {
   mounted() {
     this.identifyCode = ''
     this.makeCode(this.identifyCodes, 4)
-    document
-      .querySelector('body')
-      .setAttribute('style', 'background-color:#658ea9 ')
+    // document
+    //   .querySelector('body')
+    //   .setAttribute('style', 'background-color:#658ea9 ;')
   },
   beforeDestroy() {
     document.querySelector('body').removeAttribute('style')
@@ -192,6 +192,13 @@ export default {
 </script>
  
 <style scoped>
+#img{
+background:url("./img4.jpeg");
+width:100%;
+height:100%;
+position:fixed;
+background-size:100% 100%;
+}
 .login-info >>> .el-col {
   background-color: #e5e8ec;
   padding: 2% 5% 0% 2%;
@@ -203,7 +210,7 @@ export default {
   margin-top: -250px;
   text-align: center;
   font-size: 30px;
-  color: rgb(175, 241, 192);
+  color: #7eb2d3;
 }
 .ms-login {
   position: absolute;
@@ -214,8 +221,9 @@ export default {
   margin: -200px 0 0 -190px;
   padding: 40px;
   border-radius: 22px;
-  background: rgb(157, 201, 168);
-  box-shadow: #71a071 0px 0px 15px;
+  background: #21323c;
+  box-shadow: #1e323e 0px 0px 15px;
+  
 }
 .code {
   width: 112px;

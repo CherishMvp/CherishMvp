@@ -14,7 +14,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
     proxyTable: {
       '/api': {//即加上前缀,强制走代理,否则public里有的就不会走代理
         target: 'http://127.0.0.1:3000/api/',

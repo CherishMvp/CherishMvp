@@ -54,7 +54,7 @@
 	.userContent {
 		width: 100%;
 		margin: 0 auto;
-        background-image: url('../../../static/img/success.jpg');
+    background-image: url('../../../static/img/success.jpg');
 		background-size: cover;
 		height: 500px;
 	}
