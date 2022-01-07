@@ -41,14 +41,14 @@ router.get('/login', (req, res) => {
         if(result.length != 0) {
           state.state = 1;
           res.json(state);
-          res.json(result)
+          // res.json(result)
           // res.send('seccuess')
           res.end()
         } else {
           state.state = 0;
           res.json(state);
-          res.json(result)
-          res.end()
+          // res.json(result)
+          // res.end()
         }
     });
    

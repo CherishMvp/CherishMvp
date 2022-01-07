@@ -23,8 +23,8 @@
                     show-password
                     clearable></el-input>
         </el-form-item>
-        <el-form-item prop="validate">
-          <el-input v-model="ruleForm.validate"
+        <el-form-item prop="validateCode">
+          <el-input v-model="ruleForm.validateCode"
                     class="validate-code"
                     placeholder="验证码"></el-input>
           <div class="code"
@@ -65,13 +65,21 @@ export default {
         callback()
       }
     }
+    var validateCode = (rule, value, callback) => {
+      if (value !== this.identifyCode) {
+        callback(new Error('请输入正确的验证码'))
+      } else {
+        callback()
+      }
+    }
+
     return {
       identifyCodes: '1234567890',
       identifyCode: '',
       ruleForm: {
         userName: '',
         password: '',
-        validate: '',
+        validateCode: '',
       },
       rules: {
         userName: [
@@ -86,8 +94,13 @@ export default {
             trigger: 'blur',
           },
         ],
-        validate: [
-          { required: true, message: '请输入验证码', trigger: 'blur' },
+        validateCode: [
+          {
+            // required: true,
+            // message: '请输入验证码',
+            validator: validateCode,
+            trigger: 'blur',
+          },
         ],
       },
     }
@@ -107,16 +120,16 @@ export default {
         //         });
         //             }
         //           }
-        
+
         if (valid) {
-           sessionStorage.setItem('ms_username',this.ruleForm.userName);
+          sessionStorage.setItem('ms_username', this.ruleForm.userName)
           // alert('submit!');
           axios
             .get('/api/user/login', {
-             params:{
-                userName:this.ruleForm.userName,
-                password:this.ruleForm.password
-            }
+              params: {
+                userName: this.ruleForm.userName,
+                password: this.ruleForm.password,
+              },
             })
             .then((res) => {
               console.log(res)
@@ -146,8 +159,8 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields()
     },
-    registForm(){
-this.$router.push('/register');
+    registForm() {
+      this.$router.push('/register')
     },
     randomNum(min, max) {
       return Math.floor(Math.random() * (max - min) + min)
@@ -163,49 +176,7 @@ this.$router.push('/register');
       }
       console.log(this.identifyCode)
     },
-                debounce(func, delay) {
-                return function(args) {
-                    var _this = this
-                    var _args = args
-                    clearTimeout(func.id)
-                    func.id = setTimeout(function() {
-                    func.call(_this, _args)
-                    }, delay)
-                }
-            },
-            submitDebounce(formName) {
-                const self = this;
-                self.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        sessionStorage.setItem('ms_username',self.ruleForm.userName);
-                        sessionStorage.setItem('ms_user',JSON.stringify(self.ruleForm));
-                        console.log(JSON.stringify(self.ruleForm));                        
-                        self.$http.post('/api/user/login',JSON.stringify(self.ruleForm))
-                        .then((response) => {
-                            console.log(response);
-                            if (response.data == -1) {
-                                self.errorInfo = true;
-                                self.errInfo = '该用户不存在';
-                                console.log('该用户不存在')
-                            } else if (response.data == 0) {
-                                console.log('密码错误')
-                                self.errorInfo = true;
-                                self.errInfo = '密码错误';
-                            } else if (response.status == 200) {
-                                self.$router.push('/monitor');
-                            }                            
-                        }).then((error) => {
-                            console.log(error);
-                        })
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
-            },
-            debounceAjax () {
-                debounce(submitDebounce,1000);
-            }
+
   },
   mounted() {
     this.identifyCode = ''

@@ -1,18 +1,25 @@
 # vue-show
 # 安装element-ui,mysql,express,axios依赖
 <!--
-1.进行登陆页面的布局设置,UI界面分布,初步的跳转功能的实现2021-12-05 23:59:19
-2.2022-01-06 23:43:44
-重新完善了登陆和注册界面的逻辑操作,跳转功能等的实现.使得登陆逻辑更为清晰.和小程序端口共用一个数据库来注册和登陆.
-3. 2022-01-06 23:45:26
-带有-pre后缀的为之前只带有登陆验证的后端接口文件.
-4.2022-01-07 00:01:46
-出现错误:
+1.  2021-12-05 23:59:19
+  进行登陆页面的布局设置,UI界面分布,初步的跳转功能的实现
+2.  2022-01-06 23:43:44
+  重新完善了登陆和注册界面的逻辑操作,跳转功能等的实现.使得登陆逻辑更为清晰.和小程序端口共用一个数据库来注册和登陆.
+3.  2022-01-06 23:45:26
+  带有-pre后缀的为之前只带有登陆验证的后端接口文件.
+4.  2022-01-07 00:01:46
+  出现错误:
     [
       throw err; // Rethrow non-MySQL errors
       ^
-Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client ]
+  Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after   they are sent to the client 
+  ]
       考虑使用和小程序应用一样,使用PHP后端服务来验证.
+5.  2022-01-07 09:20:54
+  这种问题的出现是由于，node每次只能返回一次res.send()，如果返回多次就会报这样的错。
+6.  2022-01-07 10:27:16
+  完善验证码逻辑登录.
+  并且通过sessionStorage.setItem('ms_username', this.ruleForm.userName)
 
  -->
 > A Vue.js project

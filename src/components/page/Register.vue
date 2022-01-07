@@ -182,12 +182,12 @@ export default {
             .then((res) => {
               console.log('信息添加成功')
               // alert('信息添加成功')
-                 this.$message({
+              this.$message({
                 message: '信息添加成功',
                 type: 'success',
               })
               this.$router.push({ path: '/register-success' })
-            res.end()
+              res.end()
             })
             .catch((err) => {
               console.log(err)
