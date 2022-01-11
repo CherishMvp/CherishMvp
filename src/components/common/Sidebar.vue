@@ -27,12 +27,30 @@
                     {
                         icon: 'el-icon-setting',
                         index: 'monitor',
-                        title: '简介'
+                        title: '实时监控'
                     },
-                    {
+                  
+                       {
+                        icon: 'el-icon-setting',
+                        index: 'control',
+                        title: '控制模块'
+                    },
+                        {
+                          // 对应show模块
+                        icon: 'el-icon-setting',
+                        index: 'show',
+                        title: '数据监控',
+                        subs: [
+                            {
+                                index: 'db',
+                                title: '数据库'
+                            }
+                        ]
+                    },
+                      {
                         icon: 'el-icon-setting',
                         index: 'userCenter',
-                        title: '设置',
+                        title: '用户管理',
                         subs: [
                             {
                                 index: 'upload',
@@ -47,7 +65,7 @@
                                 title: '修改密码'
                             }
                         ]
-                    }
+                    },
                 ]
             }
         },
