@@ -54,6 +54,10 @@ export default new Router({
                 path: '/db',
                 component: resolve => require(['../components/page/Db.vue'], resolve)
               },
+              {
+                path: '/db2',
+                component: resolve => require(['../components/page/Db2.vue'], resolve)
+              },
         {
           path: '/success',
           component: resolve => require(['../components/page/Success.vue'], resolve)

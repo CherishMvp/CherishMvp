@@ -43,7 +43,11 @@
                         subs: [
                             {
                                 index: 'db',
-                                title: '数据库'
+                                title: '用户数据库'
+                            },
+                              {
+                                index: 'db2',
+                                title: '环境数据库'
                             }
                         ]
                     },

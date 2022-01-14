@@ -6,7 +6,7 @@
           <router-link class="list-group-item" active-class="active" to="/test">Test</router-link>
           <router-link class="list-group-item" active-class="active" to="/home">home</router-link> -->
       <!-- <Login/> -->
-     <router-view/>
+     <router-view />
      <!-- <router-view name="about"/>
      <router-view name="test"/> -->
   </div>
@@ -29,6 +29,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 } */
+
    @import "../static/css/main.css";
     @import "../static/css/color-dark.css"; 
           /*深色主题*/

@@ -272,18 +272,28 @@ export default {
   mounted() {
     //this.drawLine()
     this.chartChange()
+    this.mqttMSG()
     //this.chartChange2()
   },
+
   created() {
+    // this.mqttMSG()
+  },
+  activated() {
     this.mqttMSG()
   },
   beforeDestroy() {
     // client.disconnect()
     // client.close()
-    // client.on('disconnect', (e) => {
-    //   console.log('连接成功:')
-    //   client.disconnect()
-    // })
+
+    console.log('准备退出mqtt连接')
+    // client.end()
+    // 取消订阅
+      // client.unubscribe(
+      //   // topic, topic Array, topic Array-Onject
+      //   'zwt/test',
+      //   onUnubscribeSuccess,
+      // )
     console.log('已退出MQTT连接')
   },
   methods: {
