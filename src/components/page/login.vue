@@ -1,6 +1,6 @@
 <template>
   <div id="img"> 
-    <div class="ms-title">登录管理系统</div>
+    <div class="ms-title">实验室环境监测系统</div>
     <div class="ms-login">
 
       <!-- <h3 style="text-align: center;">登录界面</h3> -->

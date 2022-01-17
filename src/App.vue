@@ -6,7 +6,8 @@
           <router-link class="list-group-item" active-class="active" to="/test">Test</router-link>
           <router-link class="list-group-item" active-class="active" to="/home">home</router-link> -->
       <!-- <Login/> -->
-     <router-view />
+     <router-view >
+     </router-view>
      <!-- <router-view name="about"/>
      <router-view name="test"/> -->
   </div>

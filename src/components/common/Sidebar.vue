@@ -24,10 +24,22 @@
         data() {
             return {
                 items: [
-                    {
+                  
+                {
+                          // 对应show模块
                         icon: 'el-icon-setting',
-                        index: 'monitor',
-                        title: '实时监控'
+                        index: 'start',
+                        title: '数据监控',
+                        subs: [
+                            {
+                                index: 'monitor',
+                                title: '温湿度监控'
+                            },
+                              {
+                                index: 'monitor2',
+                                title: '其他数据监控'
+                            }
+                        ]
                     },
                   
                        {

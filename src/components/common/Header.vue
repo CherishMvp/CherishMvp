@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <div class="logo">登录管理系统</div>
+        <div class="logo">实验室环境监测系统</div>
         <div class="user-info">
             <el-dropdown trigger="click" @command="handleCommand">
                 <span class="el-dropdown-link">
@@ -50,6 +50,7 @@
         font-size: 22px;
         line-height: 70px;
         color: #fff;
+        text-align: center;
     }
     .header .logo{
         float: left;

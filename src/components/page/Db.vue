@@ -1,46 +1,58 @@
 <template>
   <div>
-    <p>我是控制页</p>
-    <div style="margin-top:50px">
+    <!-- <p>我是用户数据页</p> -->
+    <div>
       <el-input v-model="tableDataName"
                 placeholder="请输入姓名"
                 style="width:240px"></el-input>
       <el-button type="primary"
                  @click="doFilter">搜索</el-button>
-                 <!--  <el-button type="button"
+      <!--  <el-button type="button"
                  @click="doReset">重置</el-button> -->
       <!-- 表格 -->
-      <el-table :data="tableDataEnd"
-                border
-                style="width: 100%">
-        <el-table-column prop="id"
-                         sortable
-                         label="序号"
-                         width="180">
-        </el-table-column>
-        <el-table-column prop="userName"
-                         sortable
-                         label="用户名"
-                         width="180">
-        </el-table-column>
-        <el-table-column prop="password"
-                         sortable
-                         label="密码">
-        </el-table-column>
-        <el-table-column prop="tel"
-                         sortable
-                         label="电话">
-        </el-table-column>
-      </el-table>
-      <!-- 分页 -->
-      <el-pagination @size-change="handleSizeChange"
-                     @current-change="handleCurrentChange"
-                     :current-page="currentPage"
-                     :page-sizes="[1, 2, 3, 4]"
-                     :page-size="pageSize"
-                     layout="total, sizes, prev, pager, next, jumper"
-                     :total="totalItems">
-      </el-pagination>
+      <div class="space">
+        <el-table :data="tableDataEnd"
+                  border
+                  style="width: 100%">
+          <el-table-column prop="id"
+                           sortable
+                           label="序号"
+                           width="180"
+                           header-align="center"
+                           align="center">
+          </el-table-column>
+          <el-table-column prop="userName"
+                           sortable
+                           label="用户名"
+                           width="180"
+                           header-align="center"
+                           align="center">
+          </el-table-column>
+          <el-table-column prop="password"
+                           sortable
+                           label="密码"
+                           header-align="center"
+                           align="center">
+          </el-table-column>
+          <el-table-column prop="tel"
+                           sortable
+                           label="电话"
+                           header-align="center"
+                           align="center">
+          </el-table-column>
+        </el-table>
+        <!-- 分页 -->
+        <div class="space">
+        <el-pagination @size-change="handleSizeChange"
+                       @current-change="handleCurrentChange"
+                       :current-page="currentPage"
+                       :page-sizes="[1, 2, 3, 4]"
+                       :page-size="pageSize"
+                       layout="total, sizes, prev, pager, next, jumper"
+                       :total="totalItems">
+        </el-pagination>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -50,7 +62,7 @@
 export default {
   data() {
     return {
-      tableDataBegin:[],
+      tableDataBegin: [],
       tableDataName: '',
       tableDataEnd: [],
       currentPage: 1,
@@ -60,7 +72,6 @@ export default {
       flag: false,
     }
   },
-
 
   handleSelectionChange(val) {
     this.users.id = val
@@ -72,21 +83,20 @@ export default {
       console.log(res)
       // this.tableDataEnd = res.data
       //将从后台获取到的数据放在Begin上,
-      this.tableDataBegin=res.data
+      this.tableDataBegin = res.data
       console.log(this.tableDataEnd)
       //页面初始化时让分页的总条数等于数据的总条数
-    this.totalItems = this.tableDataBegin.length
-    //如果分页的页数等于当页要展示的条数
-    if (this.totalItems > this.pageSize) {
-      for (let index = 0; index < this.pageSize; index++) {
-        //那么就将这几条push进展示表格中
-        this.tableDataEnd.push(this.tableDataBegin[index])
+      this.totalItems = this.tableDataBegin.length
+      //如果分页的页数等于当页要展示的条数
+      if (this.totalItems > this.pageSize) {
+        for (let index = 0; index < this.pageSize; index++) {
+          //那么就将这几条push进展示表格中
+          this.tableDataEnd.push(this.tableDataBegin[index])
+        }
+      } else {
+        //否则就展示首页
+        this.tableDataEnd = this.tableDataBegin
       }
-    } else {
-      //否则就展示首页
-      this.tableDataEnd = this.tableDataBegin
-    }
-    
     })
   },
   methods: {
@@ -116,7 +126,6 @@ export default {
       this.flag = true
     },
 
-    
     //每页展示条数
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)
@@ -151,3 +160,14 @@ export default {
   },
 }
 </script>
+
+
+
+<style scoped>
+.space{
+  margin-top: 30px
+}
+</style>>
+
+
+

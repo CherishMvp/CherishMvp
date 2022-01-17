@@ -28,6 +28,10 @@ export default new Router({
           component: resolve => require(['../components/page/Upload.vue'], resolve)       // Vue-Core-Image-Upload组件
         },
         {
+          path: '/monitor2',
+          component: resolve => require(['../components/page/Monitor2.vue'], resolve)       // Vue-Core-Image-Upload组件
+        },
+        {
           path: '/userCenter',
           component: resolve => require(['../components/page/UserCenter.vue'], resolve)    // 拖拽列表组件 
         },

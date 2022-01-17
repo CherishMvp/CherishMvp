@@ -34,7 +34,8 @@ var client
 var client2
 const options = {
   connectTimeout: 40000,
-  clientId: 'mqttjs_54416631',
+  clientId: 'monitor_' + parseInt(Math.random() * 100 + 800, 10),
+
   username: MQTT_USERNAME,
   password: MQTT_PASSWORD,
   clean: true,
