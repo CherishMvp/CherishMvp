@@ -62,6 +62,7 @@
 
 <script>
     export default {
+      name:'Readme',
         data: function(){
             return {}
         }

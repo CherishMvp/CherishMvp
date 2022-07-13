@@ -1,98 +1,219 @@
+<!--2022-04-20 21:35:04 监控界面1（温湿度监控）  
+
+其原理都是将订阅的mqtt的消息转存为数组中。然后接着进行实时刷新显示（2s刷新一次）-->
 <template>
-  <div>
-    <div style="width:100%;height: 100px;">
-      测试数据:{{msg}}
+  <div class="top">
 
-      <div>
-        <span>温度:{{dd.temp}}</span><br />
-        <span>湿度:{{dd.humi}}</span>
-      </div>
-    </div>
-    <div id="chartLineBox"
-         style="width: 100%;height: 360px;">
-      <span>温度:{{dd.temp}}</span><br />
-
-    </div>
-    <!-- 		<span>温度:{{dd.temp}}</span><br />
-		<div class="temp"> 
-			   <el-col :span="12" v-for="(item, index) in list" :key="index">
-			          <div class="myEcharts" :style="{ height: '300px'  }"></div>
-			        </el-col>
-					</div> -->
-
+    <div id="line"
+         style="width: 100%;height:700px;margin-top:20px"></div>
+    <el-col :span="24">
+      <!-- <el-button @click="change">切换</el-button> -->
+    </el-col>
   </div>
-
 </template>
 <script>
+// import initMqtt from '../../utils/initMqtt'
+// 导入mqtt配置
 import mqtt from 'mqtt'
 import {
   MQTT_SERVICE,
   MQTT_USERNAME,
   MQTT_PASSWORD,
 } from '../../utils/sysconstant'
-var client
-var client2
 const options = {
   connectTimeout: 40000,
-  clientId: 'monitor_' + parseInt(Math.random() * 100 + 800, 10),
-
+  clientId: 'hhhhhmonitor_' + parseInt(Math.random() * 100 + 800, 10),
+  keepAliveInterval: 10, //当时间为60时会出现断链问题
   username: MQTT_USERNAME,
   password: MQTT_PASSWORD,
   clean: true,
 }
-client = mqtt.connect(MQTT_SERVICE, options)
-
 export default {
-  name: 'Monitor',
   data() {
     return {
-      msg: '',
-      dd: '',
-      cc: '',
-      list: [
-        {
-          id: 1,
-          value: '',
-          name: 'CPU利用率',
-        },
-        {
-          id: 2,
-          value: '',
-          name: '内存利用率',
-        },
-      ],
+      data: [],
+      datas: [],
+      datass: [],
+      datas3: [], //温度
+      datas4: [], //湿度
+      myChart: {},
+      myChart2: {},
 
-      //成功的显示1
-      /* 				option: {
-					tooltip: {
-						formatter: '{a} <br/>{b} : {c}%'
-					},
-					series: [{
-						name: 'Pressure',
-						type: 'gauge',
-						detail: {
-							formatter: '{value}'
-						},
-						data: [{
-							value: this.cc,
-							name: 'SCORE'
-						}]
-					}]
-				} */
-      option: {
-        //echarts设置
+      msg: [],
+      dd: '',
+      temp: '',
+      humi: '',
+      aa: {
+        temp: '',
+        humi: '',
+      },
+      client: {
+        connected: false,
+      },
+    }
+  },
+
+  mounted() {
+    this.mqttMSG()
+
+    console.log('start')
+    this.$nextTick(() => {
+      this.drawChart()
+      // console.log( this.$moment(this.date).format("hh:mm:ss"))
+      this.timer = setInterval(() => {
+        this.data.push(this.$moment(this.date).format('hh:mm:ss'))
+        //将从MQTT格式化好的数据依次存入各个折线对应的数组中。
+        // 只需要三个烟雾传感器的值就可以了
+        // s和ss存放折线图数据，每个数组5个。s3和s4各存放一个温湿度的数据
+        this.datas.push(this.aa.temp)
+        this.datass.push(this.aa.humi) //随机数代替
+        this.datas3.push(this.aa.temp)
+        this.datas4.push(this.aa.humi) //随机数代替
+        // this.datass2.push(this.aa.humi)
+        //取数组中最新的1个数值.即温湿度是实时显示一个的
+        if (this.data.length > 1) {
+          this.datas3.splice(0, 1)
+          this.datas4.splice(0, 1)
+          // this.datass2.splice(0, 1)
+        }
+        //取数组中最新的五个数值
+        if (this.data.length > 5) {
+          // 让时间轴和数据都保持最新的五个
+          this.data.splice(0, 1)
+          this.datas.splice(0, 1)
+          this.datass.splice(0, 1)
+          // this.datass2.splice(0, 1)
+        }
+        var option = this.myChart.getOption()
+        option.xAxis[0].data = this.data
+        //将数据以数组的形式赋给各自的data
+        option.series[0].data = this.datas
+        option.series[1].data = this.datass
+        option.series[2].data[0].value = this.datas3
+        option.series[3].data[0].value = this.datas4
+        // console.log( option.xAxis)
+
+        console.log('开始打印:')
+        //纵坐标值1
+
+        //纵坐标值2
+
+        console.log('temp:' + option.series[2].data[0].value)
+        console.log('humi:' + option.series[3].data[0].value)
+        this.myChart.setOption(option)
+        this.$forceUpdate()
+      }, 2000)
+    })
+  },
+  destroyed() {
+    clearInterval(this.timer)
+    this.client.end()
+    console.log('stop-MQTT-connect')
+  },
+  methods: {
+    drawChart() {
+      this.myChart = this.$echarts.init(document.getElementById('line'))
+      // 绘制图表
+      this.myChart.setOption({
+        // title: {
+        //   text: '温湿度实时图',
+        // },
+        // 注释
+        tooltip: {
+          trigger: 'axis',
+        },
+
+        grid: {
+          containLabel: true,
+          top: '55%',
+        },
+        //工具栏
+        toolbox: {
+          top: '50%',
+          left: 'right',
+          show: true,
+          feature: {
+            dataZoom: {
+              yAxisIndex: 'none',
+            },
+            dataView: { readOnly: false },
+            magicType: { type: ['line', 'bar'] },
+            restore: {},
+            saveAsImage: {},
+          },
+        },
+        legend: {
+          // 可以通过left，right四个方向属性来设置百分比
+          data: ['温度', '湿度'],
+          right: 'center',
+          // orient: "vertical",
+          bottom: '50%',
+          // center:["40%","50%"]
+        },
+        xAxis: {
+          type: 'category',
+          data: [],
+        },
+        yAxis: [
+          {
+            name: '数值',
+            type: 'value',
+            max: 80,
+            min:5,
+            interval:15
+          },
+        ],
         series: [
+          // s和ss是折线图，其他不变
           {
             name: '温度',
+            type: 'line',
+            lineStyle: {
+              width: 1,
+            },
+            //data接收赋值项
+            data: this.datas,
+            markPoint: {
+              data: [
+                { type: 'max', name: 'Max' },
+                { type: 'min', name: 'Min' },
+              ],
+            },
+            markLine: {
+              data: [{ type: 'average', name: 'Avg' }],
+            },
+          },
+          {
+            name: '湿度',
+            type: 'line',
+            lineStyle: {
+              width: 1,
+            },
+            //data接收赋值项
+            data: this.datass,
+            markPoint: {
+              data: [
+                { type: 'max', name: 'Max' },
+                { type: 'min', name: 'Min' },
+              ],
+            },
+            markLine: {
+              data: [{ type: 'average', name: 'Avg' }],
+            },
+          },
+          //温湿度等(3)
+          {
+            radius: '30%', //设置大小
+            name: '温度',
             type: 'gauge',
-            center: ['30%', '60%'],
+            center: ['25%', '30%'],
             startAngle: 200,
             endAngle: -20,
             min: 0,
-            max: 90, //最大范围
-            splitNumber: 15, //分成几格
+            max: 60, //最大范围
+            splitNumber: 6, //分成几大格
             itemStyle: {
-              color: '#fd6e1f',
+              color: '#5470c6',
             },
             progress: {
               show: true,
@@ -108,33 +229,33 @@ export default {
             },
             axisTick: {
               distance: -45,
-              splitNumber: 5,
+              splitNumber: 4, //每个大刻度里面分成几小格
               lineStyle: {
                 width: 2,
                 color: '#999',
               },
             },
             splitLine: {
-              distance: -52,
-              length: 14,
+              distance: -50,
+              length: 10,
               lineStyle: {
                 width: 3,
                 color: '#999',
               },
             },
             axisLabel: {
-              distance: -20,
+              distance: -5,
               color: '#999',
-              fontSize: 20,
+              fontSize: 14,
             },
             anchor: {
               show: false,
             },
             title: {
               show: true,
-              offsetCenter: ['0%', '80%'],
+              offsetCenter: ['0%', '50%'],
               fontSize: 30,
-              color: '#fd6e1f',
+              color: '#5470c6',
             },
             detail: {
               valueAnimation: true,
@@ -142,28 +263,29 @@ export default {
               lineHeight: 40,
               borderRadius: 8,
               offsetCenter: [0, '-15%'],
-              fontSize: 40,
+              fontSize: 30,
               fontWeight: 'bolder',
               formatter: '{value} °C',
-              color: '#fd6e1f',
+              color: '#5470c6',
             },
             data: [
               {
-                value: this.cc,
+                value: this.datas3,
                 name: '温度',
               },
             ],
           },
-
+          //第二个
           {
+            radius: '30%', //设置大小
             name: '湿度',
             type: 'gauge',
-            center: ['70%', '60%'], //设置位置
+            center: ['75%', '30%'], //设置位置
             startAngle: 200,
             endAngle: -20,
             min: 0,
             max: 90,
-            splitNumber: 15,
+            splitNumber: 9,
             itemStyle: {
               color: '#6dff3b',
             },
@@ -181,31 +303,31 @@ export default {
             },
             axisTick: {
               distance: -45,
-              splitNumber: 5,
+              splitNumber: 4,
               lineStyle: {
                 width: 2,
                 color: '#999',
               },
             },
             splitLine: {
-              distance: -52,
-              length: 14,
+              distance: -50,
+              length: 10,
               lineStyle: {
                 width: 3,
                 color: '#999',
               },
             },
             axisLabel: {
-              distance: -20,
+              distance: -5,
               color: '#999',
-              fontSize: 20,
+              fontSize: 14,
             },
             anchor: {
               show: false,
             },
             title: {
               show: true,
-              offsetCenter: ['0%', '80%'],
+              offsetCenter: ['0%', '50%'],
               fontSize: 30,
               color: '#6dff3b',
             },
@@ -215,118 +337,37 @@ export default {
               lineHeight: 40,
               borderRadius: 8,
               offsetCenter: [0, '-15%'],
-              fontSize: 40,
+              fontSize: 30,
               fontWeight: 'bolder',
               formatter: '{value} %',
               color: '#6dff3b',
             },
             data: [
               {
-                value: this.cc,
+                value: this.datas4,
                 name: '湿度',
               },
             ],
           },
-
-          {
-            type: 'gauge',
-            center: ['20%', '50%'],
-            startAngle: 200,
-            endAngle: -20,
-            min: 0,
-            max: 60,
-            itemStyle: {
-              color: '#FD7347',
-            },
-            progress: {
-              show: true,
-              width: 8,
-            },
-            pointer: {
-              show: false,
-            },
-            axisLine: {
-              show: false,
-            },
-            axisTick: {
-              show: false,
-            },
-            splitLine: {
-              show: false,
-            },
-            axisLabel: {
-              show: false,
-            },
-            detail: {
-              show: false,
-            },
-            data: [
-              {
-                value: '',
-              },
-            ],
-          },
         ],
-      },
-    } //return 到此结束
-  }, //data到这里结束
-  mounted() {
-    //this.drawLine()
-    this.chartChange()
-    this.mqttMSG()
-    //this.chartChange2()
-  },
-
-  created() {
-    // this.mqttMSG()
-  },
-  activated() {
-    this.mqttMSG()
-  },
-  beforeDestroy() {
-    // client.disconnect()
-    // client.close()
-
-    console.log('准备退出mqtt连接')
-    // client.end()
-    // 取消订阅
-      // client.unubscribe(
-      //   // topic, topic Array, topic Array-Onject
-      //   'zwt/test',
-      //   onUnubscribeSuccess,
-      // )
-    console.log('已退出MQTT连接')
-  },
-  methods: {
-    chartChange() {
-      const myEcharts = this.$echarts.init(
-        document.getElementById('chartLineBox'),
-        'gauge'
-      )
-      // 使用刚指定的配置项和数据显示图表。
-
-      setInterval(() => {
-        //var random = (Math.random() * 100).toFixed(2);
-        var random1 = this.dd.temp
-        var random2 = this.dd.humi
-
-        // var random = 90;
-        this.option.series[0].data[0].value = random1
-        this.option.series[1].data[0].value = random2
-        // this.option2.series[0].data[0].value = random2
-
-        myEcharts.setOption(this.option, true)
-        // myEcharts2.setOption(this.option2, true)
-      }, 400)
+      })
+    },
+    change() {
+      this.$router.push({ path: '/monitor2' })
     },
     mqttMSG() {
       // mqtt连接
-      client.on('connect', (e) => {
+      //  if (client.connected) {
+      //   client.end();
+      // }
+      this.client = mqtt.connect(MQTT_SERVICE, options)
+
+      this.client.on('connect', (e) => {
         console.log('连接成功:')
-        client.subscribe(
+        this.client.subscribe(
           'zwt/test',
           {
-            qos: 1,
+            qos: 0,
           },
           (error) => {
             if (!error) {
@@ -338,48 +379,55 @@ export default {
         )
       })
       // 接收消息处理
-      client.on('message', (topic, message) => {
+      /*处理流程：
+      *首先连接MQTT后，对收到的主题进行处理。对JSON格式序列化。toString()返回该对象的
+      字符串表示。JSON.parse()方法将JSON格式字符串转换为JS对象。要放入echarts数组中的值，先存在aa中的各个属性值中。然后依次写入前五个到各个图表的数组中。
+      *
+      * 
+*/
+      this.client.on('message', (topic, message) => {
         console.log('收到来自', topic, '的消息', message.toString())
         //console.log(message)
         this.msg = message.toString()
+        this.dd = JSON.parse(this.msg)
+        this.aa.mq7 = this.dd.mq7
+        this.aa.mq2 = this.dd.mq2
+        this.aa.mq135 = this.dd.mq135
+        this.aa.temp = this.dd.temp
+        this.aa.humi = this.dd.humi
 
-        var DD = this.msg //赋值
-        this.dd = JSON.parse(DD)
-        this.option.series[0].data[0].value = this.dd.temp
-        this.list[0].value = this.dd.temp
-        this.list[1].value = this.dd.humi
-        console.log('我是DD里的数据:' + DD)
-        console.log(this.list[0].value)
-        console.log('温度:' + this.dd.temp)
-
-        console.log('湿度:' + this.dd.humi)
-        /* 	var dd=this.dd
-						console.log("我是dd里的数据:"+dd) */
-
-        /* 			var dd=this.msg//赋值
-								this.DD=Object.values(dd).toString()
-								console.log("我是从MQTT接收到的数据:"+this.msg)
-								
-								console.log("我是DD里的数据:"+this.DD)
-								console.log(Object.keys(dd).toString())//取出数组里的key
-								console.log(Object.values(dd).toString())//取出数组里的value
-								 */
+        //   //取出主题中的lx和mq2
+        console.log(this.aa.mq7)
+        console.log(this.aa.mq2)
+        console.log(this.aa.mq135)
+        console.log(this.temp)
+        console.log(this.humi)
       })
 
       // 断开发起重连
-      client.on('reconnect', (error) => {
+      this.client.on('reconnect', (error) => {
         console.log('正在重连:', error)
       })
       // 链接异常处理
-      client.on('error', (error) => {
+      this.client.on('error', (error) => {
         console.log('连接失败:', error)
       })
     },
   },
 }
 </script>
-<style>
-.temp {
-  height: 800px;
+<style scoped>
+.top {
+  /* margin-top: -30px; */
+  /* display: float;
+  justify-content: center;
+  text-align: center;
+  align-items: center; */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 800px;
+  height: 430px;
+  margin: -350px 0 0 -430px;
 }
 </style>

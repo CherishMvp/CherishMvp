@@ -1,3 +1,4 @@
+// 数据库配置参数，连接阿里云服务器数据库，用户名密码等。
 // 数据库连接助手
 const mysql = require('mysql');
 
@@ -10,7 +11,9 @@ class DBHelper{
             user: 'cherish', 
             database: 'user',      // 数据库名
             password: 'Qaz123plm',   // root 密码
-            port: '3306'
+            port: '3306',
+            // 设置以字符换的形式展示。不会出现时区少8小时问题。
+            dateStrings:true
         });
         conn.connect();
         return conn;

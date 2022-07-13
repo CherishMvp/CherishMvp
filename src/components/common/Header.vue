@@ -1,7 +1,12 @@
+
 <template>
+<!-- 2022-04-20 19:40:35 
+  header部分，顶部栏，简单功能
+ -->
     <div class="header">
         <div class="logo">实验室环境监测系统</div>
         <div class="user-info">
+          <!-- 下拉事件command，传递多个参数.header包括个人中心和退出登录功能 -->
             <el-dropdown trigger="click" @command="handleCommand">
                 <span class="el-dropdown-link">
                     <img class="user-logo" src="../../../static/img/img.jpg">
@@ -24,6 +29,7 @@
         },
         computed:{
             username(){
+              //通过存储session的形式，获取到登录的信息
                 let username = sessionStorage.getItem('ms_username');
                 return username ? username : this.name;
             }
@@ -43,6 +49,7 @@
 </script>
 <style scoped>
     .header {
+        background-color:#019680;
         position: relative;
         box-sizing: border-box;
         width: 100%;
@@ -51,11 +58,13 @@
         line-height: 70px;
         color: #fff;
         text-align: center;
+        color:#ADD8E6
     }
     .header .logo{
         float: left;
-        width:250px;
+        width:220px;
         text-align: center;
+        background-color:#019680
     }
     .user-info {
         float: right;
@@ -66,7 +75,7 @@
     .user-info .el-dropdown-link{
         position: relative;
         display: inline-block;
-        padding-left: 50px;
+        padding-left: 40px;
         color: #fff;
         cursor: pointer;
         vertical-align: middle;

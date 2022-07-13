@@ -14,5 +14,10 @@ export const MQTT_PASSWORD = '123'
 export const MQTT_USERNAME2 = '123bbb'
 export const MQTT_PASSWORD2 = '123'
 
+//Monitor2.vue
+export const MQTT_USERNAME3 = '123ccc'
+export const MQTT_PASSWORD3 = '123'
+
+
 
 

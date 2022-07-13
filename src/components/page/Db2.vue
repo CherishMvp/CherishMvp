@@ -2,12 +2,13 @@
   <div>
     <!--     <p>我是环境数据页</p>
  -->
-    <div>
-      <el-input v-model="tableDataName"
+    <div class="top">
+      <span><h2>历史环境数据</h2></span>
+      <!-- <el-input v-model="tableDataName"
                 placeholder="请输入姓名"
                 style="width:240px"></el-input>
       <el-button type="primary"
-                 @click="doFilter">搜索</el-button>
+                 @click="doFilter">搜索</el-button> -->
       <!--  <el-button type="button"
                  @click="doReset">重置</el-button> -->
       <!-- 表格 -->
@@ -18,32 +19,52 @@
           <el-table-column prop="No"
                            sortable
                            label="序号"
-                           width="120"
+                           width="90"
                            header-align="center"
                            align="center">
           </el-table-column>
           <el-table-column prop="temp"
                            sortable
                            label="温度"
-                           width="140"
+                           width="90"
                            header-align="center"
                            align="center">
           </el-table-column>
           <el-table-column prop="humi"
                            sortable
                            label="湿度"
-                           header-align="center"
-                           align="center">
-          </el-table-column>
-          <el-table-column prop="lx"
-                           sortable
-                           label="光照"
+                           width="90"
                            header-align="center"
                            align="center">
           </el-table-column>
           <el-table-column prop="mq2"
                            sortable
-                           label="烟雾"
+                           label="MQ-2"
+                           header-align="center"
+                           align="center">
+          </el-table-column>
+          <el-table-column prop="mq7"
+                           sortable
+                           label="MQ-7"
+                           header-align="center"
+                           align="center">
+          </el-table-column>
+          <el-table-column prop="mq135"
+                           sortable
+                           label="MQ-135"
+                           header-align="center"
+                           align="center">
+          </el-table-column>
+          <el-table-column prop="red"
+                           sortable
+                           label="红外感应"
+                           header-align="center"
+                           align="center">
+          </el-table-column>
+          <el-table-column prop="fire"
+                           sortable
+                           label="Fire(0代表有)"
+                           width="130"
                            header-align="center"
                            align="center">
           </el-table-column>
@@ -90,8 +111,9 @@ export default {
     this.users.id = val
     console.log('选中的数据集合为:', val)
   },
+  // 页面一跳转就立马拉取数据读取数据库
   created() {
-    axios.get('api/user/list2').then((res) => {
+    axios.get('/api/user/list2').then((res) => {
       //这里是ES6的写法，get请求的地址
       console.log(res)
       // this.tableDataEnd = res.data
@@ -115,6 +137,7 @@ export default {
   methods: {
     //前端搜索功能需要区分是否检索,因为对应的字段的索引不同
     //用两个变量接收currentChangePage函数的参数
+    // 2022-04-20 21:28:09 暂时未加搜索功能
     doFilter() {
       if (this.tableDataName == '') {
         this.$message.warning('查询条件不能为空！')
@@ -177,5 +200,13 @@ export default {
 <style scoped>
 .space {
   margin-top: 30px;
+}
+.top {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 90%;
+  height: 430px;
+  margin: -270px 0 0 -540px;
 }
 </style>>

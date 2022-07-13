@@ -8,6 +8,7 @@
       <!-- <Login/> -->
      <router-view >
      </router-view>
+     <!-- <router-link></router-link> -->
      <!-- <router-view name="about"/>
      <router-view name="test"/> -->
   </div>
