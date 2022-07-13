@@ -6,7 +6,7 @@ const userApi = require("./api/userApi");
 const DBHelper = require("./utils/DBHelper");
 
 let conn = new DBHelper().getConn();
-
+const port = 3119;
 let app = express();
 let server = http.createServer(app);
 
@@ -24,6 +24,6 @@ app.use("/api/user", userApi);
 // app.listen(3000);
 // console.log('success listen at port:3000......');
 // 启动监听方式2
-server.listen(3119, () => {
-  console.log(" success!! port:3000");
+server.listen(port, () => {
+  console.log(` success!! port:${port}`);
 });

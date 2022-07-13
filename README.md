@@ -1,10 +1,17 @@
 # vue-show
-# 安装element-ui,mysql,express,axios依赖
+
+# 安装 element-ui,mysql,express,axios 依赖
+
 # 2022-04-20 22:43:08
-# 本次系统在vue-element-admin的模板基础上修改。删除一些不必要的功能，加入自身所需的功能。common组件为主体的header-sidebar-home三件套；
-#  page组件里为home所显示的内容{
-#  用到的有control、db、db2、monitor和monitor2，以及test（烟雾-有害气体界面），以及修改密码等组件。
+
+# 本次系统在 vue-element-admin 的模板基础上修改。删除一些不必要的功能，加入自身所需的功能。common 组件为主体的 header-sidebar-home 三件套；
+
+# page 组件里为 home 所显示的内容{
+
+# 用到的有 control、db、db2、monitor 和 monitor2，以及 test（烟雾-有害气体界面），以及修改密码等组件。
+
 }
+
 <!--
 1.  2021-12-05 23:59:19
   进行登陆页面的布局设置,UI界面分布,初步的跳转功能的实现
@@ -17,7 +24,7 @@
     [
       throw err; // Rethrow non-MySQL errors
       ^
-  Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after   they are sent to the client 
+  Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after   they are sent to the client
   ]
       考虑使用和小程序应用一样,使用PHP后端服务来验证.
 5.  2022-01-07 09:20:54
@@ -73,8 +80,8 @@
   1.暂停前端显示界面的相关操作,如数据库中环境数据的显示和其余数据的实时监控功能暂不深入完善.
   2.先将硬件设备完善,对最后的数据采集和传感器等选用出结果.功能实现就行,无需太过于强求.
   3.git操作备注:
-    [ 
-      1.查看分支: git branch -a 
+    [
+      1.查看分支: git branch -a
       2.创建分支:  git branch 分支名字
       3.转移到要上传的分支下:git checkout 分支名字
       4.git push origin 分支名字
@@ -88,7 +95,7 @@
 17.2022-02-20 13:11:01
   1.由小程序的登录界面得来灵感。用v-if和v-else来显示预警图片信息
       【    用条件渲染 ,为真的时候,登陆,假的时候用v-else.
-      
+
       若有三种以上情况,可以用 v-if v-else-if v-else-if 最后v-else 】
 18.2022-02-21 15:34:11
   1.对MQTT的连接进行优化。即改善了MQTT的自动连接和断开，在destroy之前，调用this.client.end()方法。减少冗余。效率得到增强。在有使用到MQTT的界面，进入的时候自动连接，离开该页面的时候自动断开。
@@ -103,7 +110,7 @@
       2、权限功能暂时不做，
       3、接下来专注于硬件和模型、论文
   2022-03-05 10:28:44
-      1、对于注册模块中的用户名重复问题，暂时先使用sql语句中的ignore来解决。若数据库中没有相同的用户名则插入。   
+      1、对于注册模块中的用户名重复问题，暂时先使用sql语句中的ignore来解决。若数据库中没有相同的用户名则插入。
 
   2022-03-09 00:54:53
       1、加入邮箱自动预警发送功能。明天再继续做。明天需要做完第一版论文。
@@ -128,9 +135,9 @@
       }
   2022-04-20 21:40:25 有关MQTT的qos
     1、{
-      MQTT设计了一套保证消息稳定传输的机制，包括消息应答、存储和重传。在这套机制下，提供了三种不同层次QoS（Quality of Service）： 
-       QoS0，发送就不管了，最多一次； 
-       QoS1，发送之后依赖MQTT规范，是否启动重传消息，所以至少一次； 
+      MQTT设计了一套保证消息稳定传输的机制，包括消息应答、存储和重传。在这套机制下，提供了三种不同层次QoS（Quality of Service）：
+       QoS0，发送就不管了，最多一次；
+       QoS1，发送之后依赖MQTT规范，是否启动重传消息，所以至少一次；
        QoS2，发送之后依赖MQTT消息机制，确保只有一次。 QoS 是消息的发送方（Sender）和接受方（Receiver）之间达成的一个协议：（MQTT不是端到端的通信）
     }
     2、JSON.parse(this.msg)
@@ -147,14 +154,25 @@
 2022-04-20 22:59:46
     1、优化用户查询模块；优化搜索体验感。
 
+2022-07-13 13:57:19
+修改主题颜色
+加入git cz规范化管理：pnpm install -D commitizen cz-conventional-changelog安装
 
+2022-07-13 14:05:36
+
+npm切换pnpm：如何切换
+分为三个步骤： 1.
+
+rm -rf node_modules 删除原本的node_modules
+pnpm import package-lock.json/yarn.lock   (把 lock 文件转换为 pnpm )
       }
  -->
+
 > A Vue.js project
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 
