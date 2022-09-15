@@ -276,6 +276,8 @@ export default {
   background: #5470c6;
   /* text-align: ; */
 }
+/deep/ .el-submenu .el-menu-item{ min-width:100%}
+
 .sidebar > ul {
   height: 100%;
   }

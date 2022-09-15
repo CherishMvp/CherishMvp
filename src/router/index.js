@@ -20,7 +20,7 @@ Vue.use(Router);
 export default new Router({
   mode: 'history',
   // history模式并且放在cherish目录下,如果为hash模式,且放在根目录下,不用改
-  base:'/cherish/',
+  base: '/cherish/',
   routes: [
     {
       path: '/',
@@ -69,30 +69,30 @@ export default new Router({
           component: resolve => require(['../components/page/Control.vue'], resolve)
         },
         //数据监控页面
-   
-        
-              //数据库显示界面
-              {
-                path: '/db',
-                component: resolve => require(['../components/page/Db.vue'], resolve),
-                isAutht:true
-              },
-              {
-                path: '/db2',
-                component: resolve => require(['../components/page/Db2.vue'], resolve)
-              },
-     
+
+
+        //数据库显示界面
+        {
+          path: '/db',
+          component: resolve => require(['../components/page/Db.vue'], resolve),
+          isAutht: true
+        },
+        {
+          path: '/db2',
+          component: resolve => require(['../components/page/Db2.vue'], resolve)
+        },
+
       ]
     },
     {
       path: '/register',
       component: resolve => require(['../components/page/Register.vue'], resolve)
     },
- 
+
     {
       path: '/login',
       component: resolve => require(['../components/page/Login.vue'], resolve)
     },
-   
+
   ]
 })
