@@ -1,38 +1,34 @@
 <template>
-<!-- 注册界面；验证用户名重复；调用两个api接口；先拉取数据是否存在,若不存在则调取另外一个接口注册成功； -->
+  <!-- 注册界面；验证用户名重复；调用两个api接口；先拉取数据是否存在,若不存在则调取另外一个接口注册成功； -->
   <div id="img">
     <div class="crumbs-register">
-      <el-breadcrumb separator="/"
-                     class="register-title">
-        <el-breadcrumb-item><i class="el-icon-setting"></i>注册</el-breadcrumb-item>
+      <el-breadcrumb separator="/" class="register-title">
+        <el-breadcrumb-item
+          ><i class="el-icon-setting"></i>注册</el-breadcrumb-item
+        >
       </el-breadcrumb>
     </div>
     <div class="userContent">
-      <el-form ref="form"
-               :model="form"
-               :rules="rules"
-               label-width="80px">
-        <el-form-item prop="name"
-                      label="用户名称">
-          <el-input v-model="form.name"
-                    placeholder="请输入用户名称"></el-input>
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item prop="name" label="用户名称">
+          <el-input v-model="form.name" placeholder="请输入用户名称"></el-input>
         </el-form-item>
-        <el-form-item prop="phone"
-                      label="手机">
-          <el-input v-model="form.phone"
-                    placeholder="请输入手机号"></el-input>
+        <el-form-item prop="phone" label="手机">
+          <el-input v-model="form.phone" placeholder="请输入手机号"></el-input>
         </el-form-item>
-        <el-form-item prop="pass"
-                      label="密码">
-          <el-input v-model="form.pass"
-                    type="password"
-                    placeholder="请输入密码"></el-input>
+        <el-form-item prop="pass" label="密码">
+          <el-input
+            v-model="form.pass"
+            type="password"
+            placeholder="请输入密码"
+          ></el-input>
         </el-form-item>
-        <el-form-item prop="checkPass"
-                      label="确认密码">
-          <el-input v-model="form.checkPass"
-                    type="password"
-                    placeholder="请再次输入密码"></el-input>
+        <el-form-item prop="checkPass" label="确认密码">
+          <el-input
+            v-model="form.checkPass"
+            type="password"
+            placeholder="请再次输入密码"
+          ></el-input>
         </el-form-item>
 
         <!-- <el-form-item prop="sex" label="性别">
@@ -43,12 +39,9 @@
 				</el-form-item> -->
         <div class="a">
           <el-row>
-
-            <el-button type="primary"
-                       @click="onSubmit('form')">确定</el-button>
+            <el-button type="primary" @click="onSubmit('form')">确定</el-button>
             <el-button @click="resetForm('form')">重置</el-button>
             <el-button @click="onCancle()">取消</el-button>
-
           </el-row>
         </div>
       </el-form>
@@ -57,37 +50,37 @@
 </template>
 
 <script>
-import Util from '../../utils/utils'
+import Util from "../../utils/utils";
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入密码'))
+      if (value === "") {
+        callback(new Error("请输入密码"));
       } else {
-        if (this.form.checkPass !== '') {
-          this.$refs.form.validateField('checkPass')
+        if (this.form.checkPass !== "") {
+          this.$refs.form.validateField("checkPass");
         }
-        callback()
+        callback();
       }
-    }
+    };
     var validatePass2 = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请再次输入密码'))
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
       } else if (value !== this.form.pass) {
-        callback(new Error('两次输入的密码不一致'))
+        callback(new Error("两次输入的密码不一致"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     var validatePhone = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入手机号'))
+      if (value === "") {
+        callback(new Error("请输入手机号"));
       } else if (!Util.phoneReg.test(this.form.phone)) {
-        callback(new Error('请输入正确的手机号'))
+        callback(new Error("请输入正确的手机号"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     // var validateEmail = (rule, value, callback) => {
     // 	if (value === '') {
     // 		callback(new Error('请输入邮箱'));
@@ -117,21 +110,21 @@ export default {
     // };
     return {
       form: {
-        name: '',
-        account: '',
-        pass: '',
-        checkPass: '',
-        email: '',
-        phone: '',
-        card: '',
-        birth: '',
-        sex: '',
+        name: "",
+        account: "",
+        pass: "",
+        checkPass: "",
+        email: "",
+        phone: "",
+        card: "",
+        birth: "",
+        sex: ""
       },
       rules: {
-        name: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        pass: [{ validator: validatePass, trigger: 'blur' }],
-        phone: [{ validator: validatePhone, trigger: 'blur' }],
-        checkPass: [{ validator: validatePass2, trigger: 'blur' }],
+        name: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+        pass: [{ validator: validatePass, trigger: "blur" }],
+        phone: [{ validator: validatePhone, trigger: "blur" }],
+        checkPass: [{ validator: validatePass2, trigger: "blur" }]
         /*                    account: [
                         { required: true, message: '请输入账号', trigger: 'blur' }
                     ],
@@ -151,13 +144,13 @@ export default {
                     sex: [
                         { required: true, message: '请输入性别', trigger: 'blur' }
                     ]*/
-      },
-    }
+      }
+    };
   },
   methods: {
     onSubmit(formName) {
-      const self = this
-      self.$refs[formName].validate((valid) => {
+      const self = this;
+      self.$refs[formName].validate(valid => {
         if (valid) {
           //             self.$http.post('/api/add',self.form).then(function(response) {
           // 	console.log(response);
@@ -191,64 +184,64 @@ export default {
           //   }
           // })
           // 此处定义参数要为var，并且和对应的后端API接口对应属性
-          var userName = self.form.name
-          var password = self.form.pass
-          var phone = self.form.phone
-          console.log(userName)
+          var userName = self.form.name;
+          var password = self.form.pass;
+          var phone = self.form.phone;
+          console.log(userName);
 
-// 验证用户名部分有问题。但是已经可以使用重复姓名跳过
-          if (userName != '') {
-            axios.get('/api/user/list3').then((res) => {
-              console.log(res.data)
-              const length = res.data.length
-              console.log(length)
-              const d1 = res.data
+          // 验证用户名部分有问题。但是已经可以使用重复姓名跳过
+          if (userName != "") {
+            axios.get("/api/user/list3").then(res => {
+              console.log(res.data);
+              const length = res.data.length;
+              console.log(length);
+              const d1 = res.data;
               for (var i = 0; i < length; i++) {
                 // &&that.inputPassword == d1[i].pwd
                 //打印出登录的账户是数据库中的第几个
                 if (self.form.name === d1[i].userName) {
-                  console.log(d1[i])
-                  console.log('重复的用户名')
+                  console.log(d1[i]);
+                  console.log("重复的用户名");
                   this.$message({
-                    message: '重复的用户名',
-                    type: 'error',
-                  })
+                    message: "重复的用户名",
+                    type: "error"
+                  });
                   const loading = this.$loading({
                     lock: true,
-                    text: '重新输入',
-                    spinner: 'el-icon-loading',
-                    background: 'rgba(0, 0, 0, 0.7)',
-                  })
+                    text: "重新输入",
+                    spinner: "el-icon-loading",
+                    background: "rgba(0, 0, 0, 0.7)"
+                  });
                   // 在注册界面停留两秒钟跳转登录界面
                   setTimeout(() => {
-                    loading.close()
-                    this.$router.push({ path: '/register' })
+                    loading.close();
+                    this.$router.push({ path: "/register" });
                     // res.end()
-                  }, 100)
+                  }, 100);
                 } else {
                   axios
-                    .post('/api/user/addUser', {
+                    .post("/api/user/addUser", {
                       userName,
                       password,
-                      phone,
+                      phone
                     })
-                    .then((res) => {
-                      console.log(res.data)
+                    .then(res => {
+                      console.log(res);
                       if (res.data.state == 0) {
                         const loading = this.$loading({
                           lock: true,
-                          text: '等待跳转',
-                          spinner: 'el-icon-loading',
-                          background: 'rgba(0, 0, 0, 0.7)',
-                        })
+                          text: "等待跳转",
+                          spinner: "el-icon-loading",
+                          background: "rgba(0, 0, 0, 0.7)"
+                        });
                         // 在注册界面停留两秒钟跳转登录界
                         setTimeout(() => {
-                          loading.close()
-                          this.$router.push({ path: '/login' })
+                          loading.close();
+                          this.$router.push({ path: "/login" });
                           // res.end()
-                        }, 2000)
+                        }, 2000);
                       }
-                    })
+                    });
                 }
                 //     {
                 //   axios
@@ -299,12 +292,12 @@ export default {
                 //   })
                 // }
               }
-            })
+            });
           } else {
             this.$message({
-              message: '请输入正确的用户名',
-              type: 'error',
-            })
+              message: "请输入正确的用户名",
+              type: "error"
+            });
           }
 
           // else {
@@ -341,22 +334,22 @@ export default {
           //     })
           // }
         }
-      })
+      });
     },
     resetForm(formName) {
-      const self = this
-      self.$refs[formName].resetFields()
+      const self = this;
+      self.$refs[formName].resetFields();
     },
 
     onCancle() {
-      this.$router.push('/login')
+      this.$router.push("/login");
     },
     getDateTimes(str) {
-      var str = new Date(str)
-      return str
-    },
-  },
-}
+      var str = new Date(str);
+      return str;
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -386,7 +379,7 @@ export default {
   opacity: 0.7;
 }
 #img {
-  background: url('./img4.jpeg');
+  background: url("./img4.jpeg");
   width: 100%;
   height: 100%;
   position: fixed;

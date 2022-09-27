@@ -152,23 +152,26 @@ export default {
         if (valid) {
           sessionStorage.setItem("ms_username", this.ruleForm.userName);
           // alert('submit!');
+          console.log("this.ruleForm", this.ruleForm);
           axios
-            .get("/api/user/login", {
-              params: {
-                userName: this.ruleForm.userName,
-                password: this.ruleForm.password
-              }
-            })
+            .post(
+              "/api/user/login",
+              // params: {
+              //   userName: this.ruleForm.userName,
+              //   password: this.ruleForm.password
+              // }
+              this.ruleForm
+            )
             .then(res => {
               console.log(res);
-              if (res.data.state == 1) {
+              if (res.data.code === 200) {
                 this.$router.push({ path: "/monitor" });
                 // window.location.reload()
                 this.$message({
                   message: "登陆成功",
                   type: "success"
                 });
-              } else if (res.data.state !== 1) {
+              } else if (res.data.code === 400) {
                 //this.$router.push({path: '/login'})
                 this.$message({
                   message: "账号或密码错误,请重新输入",
