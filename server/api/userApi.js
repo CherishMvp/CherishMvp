@@ -26,109 +26,126 @@ var jsonWrite = function (res, ret)
 
 
 // 增加用户
-router.post('/addUser1', (req, res) =>
+router.post('/addUser', (req, res) =>
 {
   let sqlStr = sql.user.add;
-  let params = req.body;
   let conn = new DBHelper().getConn();
-  conn.query(sqlStr, [params.userName, params.password, params.phone], (err, result) =>
+  const { userName, password, phone } = req.body
+  conn.query(sqlStr, [userName, password, phone], (err, result) =>
   {
-    // let state = {}
-    // if (result.length > 0) {
-    //   state.state = 1;
-    //   res.json(state);
-    // } else {
-    //   state.state = 0;
-    //   res.json(state);
-    // }
-    // });
-    // conn.end();
-    if (err) {
-      console.log(err);
+    if (!err) {
+      if (result.length != 0) {
+        res.json({
+          message: '增加成功',
+          code: 200
+        })
+      } else {
+        res.json({
+          message: '增加失败',
+          code: 400
+        })
+      }
+    } else {
+      res.json({
+        message: err,
+        code: 500
+      })
     }
-    if (result) {
-      jsonWrite(res, result);
-      console.log('suc')
-    }
+
   })
 });
 
-
-// 修改用户接口
-router.post('/updateUser3', (req, res) =>
-{
-  var params = req.body;
-  let conn = new DBHelper().getConn();
-  var sql = " update user set password = '" + params.password + "' where userName = '" + params.userName + "'";
-  console.log(params);
-  conn.query(sql, [params.userName], function (err, result)
-  {
-    if (err) {
-      console.log(err);
-    }
-    if (result) {
-      console.log(res);
-      jsonWrite(res, result);
-    }
-  })
-});
 
 // 删除用户接口
 router.post('/del', (req, res) =>
 {
   let sqlStr = sql.user.del;
-  let params = req.body;
   let conn = new DBHelper().getConn();
-  conn.query(sqlStr, [params.id], (err, result) =>
+  const { bookid } = req.body
+  console.log('id', bookid)
+  conn.query(sqlStr, [bookid], (err, result) =>
   {
-    let state = {}
-    if (result.length > 0) {
-      state.state = 1;
-      res.json(state);
+    if (!err) {
+      if (result.length != 0) {
+        res.json({
+          message: '删除成功',
+          code: 200
+        })
+      } else {
+        res.json({
+          message: '删除失败',
+          code: 400
+        })
+      }
     } else {
-      state.state = 0;
-      res.json(state);
+      res.json({
+        message: err,
+        code: 500
+      })
     }
+
   });
 
   conn.end();
 });
-// 更新用户信息
-router.post('/updateUser', (req, res) =>
+// 修改用户密码
+router.post('/updatePwd', (req, res) =>
 {
   let sqlStr = sql.user.update;
-  let params = req.body;
+  console.log('req', req.body)
+  const { pass, name } = req.body
   let conn = new DBHelper().getConn();
   // 传进来的参数要和前端写的一样顺序。
-  conn.query(sqlStr, [params.pass, params.name], (err, result) =>
+  conn.query(sqlStr, [pass, name], (err, result) =>
   {
-    let state = {}
-    if (result.length > 0) {
-      state.state = 1;
-      res.json(state);
+    if (!err) {
+      if (result.length != 0) {
+        res.json({
+          message: '修改成功',
+          code: 200
+        })
+      } else {
+        res.json({
+          message: '修改失败',
+          code: 400
+        })
+      }
     } else {
-      state.state = 0;
-      res.json(state);
+      res.json({
+        message: err,
+        code: 500
+      })
     }
   });
   conn.end();
 });
 // 修改用户信息
 // 更新用户信息，修改用户信息
-router.post('/up', (req, res) =>
+router.post('/updateUser', (req, res) =>
 {
   let sqlStr = sql.user.update2;
   let params = req.body;
   let conn = new DBHelper().getConn();
-  conn.query(sqlStr, [params.password, params.tel, params.userName,], (err, result) =>
+  const { password, tel, userName } = req.body
+  conn.query(sqlStr, [password, tel, userName], (err, result) =>
   {
-    let state = {}
-    if (result.length > 0) {
-      state.state = 1;
-      res.json(state);
+    if (!err) {
+      if (result.length != 0) {
+        res.json({
+          message: '修改成功',
+          code: 200
+        })
+      } else {
+        res.json({
+          message: '修改失败',
+          code: 400
+        })
+      }
     } else {
-      state.state = 0;
-      res.json(state);
+      res.json({
+        message: err,
+        code: 500
+      })
     }
   });
   conn.end();
@@ -137,8 +154,8 @@ router.post('/up', (req, res) =>
 // 验证用户名和密码
 router.post('/login', (req, res) =>
 {
-  let params = req.body;
-  console.log('body', params);
+  // let params = req.body;
+  // console.log('body', params);
   // 定义查询的信息为前端请求带过来的参数。
   // var userName = params.params.userName;
   // var password = params.params.password;
@@ -149,7 +166,7 @@ router.post('/login', (req, res) =>
   // 解构赋值，直接拿到验证的账号密码,res.json的理解，返回对应的状态码来判断
   conn.query(sqlStr, (err, result) =>
   {
-    console.log('result: ' + JSON.stringify(result));
+    // console.log('result: ' + JSON.stringify(result));
     if (!err) {
       if (result.length != 0) {
         res.json({
@@ -171,34 +188,8 @@ router.post('/login', (req, res) =>
   });
 
 });
-// 验证用户名
-router.get('/loginUser', (req, res) =>
-{
-  // let params = req.body;
-  var userName = req.query.userName;
-  // var password = req.query.password;
-  var sqlStr = sql.user.valid2
-  // var sqlStr = "select * from user where userName='" + userName + "' ";
-  var conn = new DBHelper().getConn();
-
-  conn.query(sqlStr, (err, result) =>
-  {
-    let state = {}
-    if (result.length != 0) {
-      state.state = 1;
-      res.json(state);
-      res.end()
-    } else {
-      state.state = 0;
-      res.json(state);
-      console.log(result)
-    }
-  });
-
-});
-// 验证用户名,通过查询数据库，将本地的和数据库对比。从而判断
-
-router.get('/list3', (req, res) =>
+// 验证用户名,通过查询数据库，将本地的和数据库对比。从而判断是否重复用户
+router.get('/register', (req, res) =>
 {
   let sqlStr = sql.user.list;
   // let params = req.body;
@@ -207,17 +198,12 @@ router.get('/list3', (req, res) =>
   {
     if (err) {
       res.json(err);
-      // res.end()
     } else {
-      console.log(result);
       res.json(result)
-      // res.end()
-      // console.log(result)
     }
   });
 
 });
-
 // 查询用户
 router.get('/list', (req, res) =>
 {
@@ -228,18 +214,13 @@ router.get('/list', (req, res) =>
   {
     if (err) {
       res.json(err);
-      // res.end()
     } else {
-      console.log(result);
+      // 直接返回数据，页面通过res.data接收
+      // console.log(result);
       res.json(result)
-      // res.end()
-      // console.log(result)
     }
   });
-
 });
-
-
 
 // 查询环境数据
 router.get('/list2', (req, res) =>
@@ -251,41 +232,20 @@ router.get('/list2', (req, res) =>
   {
     if (err) {
       res.json(err);
-      // res.end()
     } else {
-      console.log(result);
       res.json(result)
-      // res.end()
-      // console.log(result)
     }
   });
 
 });
-/* 
-router.get('/list', (req, res) => {
-  let conn = new DBHelper().getConn();
-  var sql = 'SELECT * FROM user';
-  conn.query(sql, function (err, result) {
-    if (err) {
-      console.log('[SELECT ERROR] - ', err.message);
-      return;
-    }
- 
-    console.log('--------------------------SELECT----------------------------');
-    console.log(result);
-    console.log('------------------------------------------------------------\n\n');
-  });
- 
-  connection.end();
- 
-});
- */
-// // 用户注册
+
+module.exports = router;
+// 验证是否重复用户，或者插入是否成功，可以交给前端处理
+/*
+// 
 // router.get('/reg',function (req, res, next) {
-//   // 从连接池获取连接
 //   let conn = new DBHelper().getConn();
 //   conn(function (err, connection) {
-//       // 获取前台页面传过来的参数
 //       var param = req.query || req.params;
 //       var userName = param.userName;
 //       var password = param.password;
@@ -336,5 +296,5 @@ router.get('/list', (req, res) => {
 // });
 
 
+*/
 
-module.exports = router;

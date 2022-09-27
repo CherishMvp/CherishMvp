@@ -191,7 +191,7 @@ export default {
 
           // 验证用户名部分有问题。但是已经可以使用重复姓名跳过
           if (userName != "") {
-            axios.get("/api/user/list3").then(res => {
+            axios.get("/api/user/register").then(res => {
               console.log(res.data);
               const length = res.data.length;
               console.log(length);
@@ -227,7 +227,7 @@ export default {
                     })
                     .then(res => {
                       console.log(res);
-                      if (res.data.state == 0) {
+                      if (res.data.code == 200) {
                         const loading = this.$loading({
                           lock: true,
                           text: "等待跳转",
