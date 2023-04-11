@@ -17,7 +17,7 @@ module.exports = {
     proxyTable: {
       "/api": {
         //即加上前缀,强制走代理,否则public里有的就不会走代理
-        target: "http://127.0.0.1:3119/api/",
+        target: "http://127.0.0.1:3000/api/",
         changeOrigin: true, //用于控制请求头中的host值
         // ws:true,//用于支持websocket
         pathRewrite: {
@@ -59,7 +59,7 @@ module.exports = {
     assetsSubDirectory: "static",
     // 若放在cherish文件夹下,则为cherish
     // 见🔗
-    assetsPublicPath: "/cherish/",
+    assetsPublicPath: "/",
 
     /**
      * Source Maps

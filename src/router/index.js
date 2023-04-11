@@ -20,7 +20,7 @@ Vue.use(Router);
 export default new Router({
   mode: 'history',
   // history模式并且放在cherish目录下,如果为hash模式,且放在根目录下,不用改
-  base: '/cherish/',
+  // base: '/cherish/',
   routes: [
     {
       path: '/',

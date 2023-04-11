@@ -6,7 +6,7 @@ const userApi = require("./api/userApi");
 const DBHelper = require("./utils/DBHelper");
 
 let conn = new DBHelper().getConn();
-const port = 3119;
+const port = 3000;
 let app = express();
 let server = http.createServer(app);
 
