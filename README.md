@@ -166,7 +166,12 @@ npm切换pnpm：如何切换
 rm -rf node_modules 删除原本的node_modules
 pnpm import package-lock.json/yarn.lock   (把 lock 文件转换为 pnpm )
       }
+
+2023-04-11 14:01:29
+有梯子情况下不需要考虑github的dns污染。
+开了代理还是不能push就刷新下dns缓存：ipconfig /flushdns (shell下)
  -->
+
 
 > A Vue.js project
 
