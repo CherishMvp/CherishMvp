@@ -1,40 +1,39 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-
-import Login from '../components/login'
-import Home from '../components/home'
-import Monitor from '../components/Monitor'
-import About from '../components/About'
+import Login from '../components/login';
+import Home from '../components/home';
+import Monitor from '../components/Monitor';
+import About from '../components/About';
 import Test from '../components/Test';
 
 /* Layout */
 // import Layout from '@/layout'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
-  mode:'history',
+  mode: 'history',
   routes: [
     {
-			path:'/about',
-			component:About,
-      name:'about'
-		},
-		{
-			path:'/test',
-			component:Test,
-      name:'test'
-		}
-    ,{
+      path: '/about',
+      component: About,
+      name: 'about',
+    },
+    {
+      path: '/test',
+      component: Test,
+      name: 'test',
+    },
+    {
       path: '/',
       name: 'login',
       component: Login,
-      components:{
-        default:Login,
-        test:Test,
-        about:About
-      }
+      components: {
+        default: Login,
+        test: Test,
+        about: About,
+      },
       // path: '/',
       // component: Layout,
       // redirect: '/dashboard',
@@ -48,13 +47,12 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: Home
+      component: Home,
     },
     {
       path: '/monitor',
       name: 'monitor',
-      component: Monitor
-    }
-  
-  ]
-})
+      component: Monitor,
+    },
+  ],
+});

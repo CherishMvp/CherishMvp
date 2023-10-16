@@ -3,9 +3,7 @@
   <div id="img">
     <div class="crumbs-register">
       <el-breadcrumb separator="/" class="register-title">
-        <el-breadcrumb-item
-          ><i class="el-icon-setting"></i>注册</el-breadcrumb-item
-        >
+        <el-breadcrumb-item><i class="el-icon-setting"></i>注册</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="userContent">
@@ -17,18 +15,10 @@
           <el-input v-model="form.phone" placeholder="请输入手机号"></el-input>
         </el-form-item>
         <el-form-item prop="pass" label="密码">
-          <el-input
-            v-model="form.pass"
-            type="password"
-            placeholder="请输入密码"
-          ></el-input>
+          <el-input v-model="form.pass" type="password" placeholder="请输入密码"></el-input>
         </el-form-item>
         <el-form-item prop="checkPass" label="确认密码">
-          <el-input
-            v-model="form.checkPass"
-            type="password"
-            placeholder="请再次输入密码"
-          ></el-input>
+          <el-input v-model="form.checkPass" type="password" placeholder="请再次输入密码"></el-input>
         </el-form-item>
 
         <!-- <el-form-item prop="sex" label="性别">
@@ -50,82 +40,82 @@
 </template>
 
 <script>
-import Util from "../../utils/utils";
-export default {
-  data() {
-    var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else {
-        if (this.form.checkPass !== "") {
-          this.$refs.form.validateField("checkPass");
+  import Util from '../../utils/utils';
+  export default {
+    data() {
+      var validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (this.form.checkPass !== '') {
+            this.$refs.form.validateField('checkPass');
+          }
+          callback();
         }
-        callback();
-      }
-    };
-    var validatePass2 = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请再次输入密码"));
-      } else if (value !== this.form.pass) {
-        callback(new Error("两次输入的密码不一致"));
-      } else {
-        callback();
-      }
-    };
-    var validatePhone = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入手机号"));
-      } else if (!Util.phoneReg.test(this.form.phone)) {
-        callback(new Error("请输入正确的手机号"));
-      } else {
-        callback();
-      }
-    };
-    // var validateEmail = (rule, value, callback) => {
-    // 	if (value === '') {
-    // 		callback(new Error('请输入邮箱'));
-    // 	} else if (!Util.emailReg.test(this.form.email)){
-    // 		callback(new Error('请输入正确的邮箱'));
-    // 	} else {
-    // 		callback();
-    // 	}
-    // };
-    // var validatePhone = (rule, value, callback) => {
-    // 	if (value === '') {
-    // 		callback(new Error('请输入手机号'));
-    // 	} else if (!Util.phoneReg.test(this.form.phone)){
-    // 		callback(new Error('请输入正确的手机号'));
-    // 	} else {
-    // 		callback();
-    // 	}
-    // };
-    // var validateCard = (rule, value, callback) => {
-    // 	if (value === '') {
-    // 		callback(new Error('请输入身份证号'));
-    // 	} else if (!Util.idCardReg.test(this.form.card)){
-    // 		callback(new Error('请输入正确的身份证号'));
-    // 	} else {
-    // 		callback();
-    // 	}
-    // };
-    return {
-      form: {
-        name: "",
-        account: "",
-        pass: "",
-        checkPass: "",
-        email: "",
-        phone: "",
-        card: "",
-        birth: "",
-        sex: ""
-      },
-      rules: {
-        name: [{ required: true, message: "请输入用户名", trigger: "blur" }],
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        phone: [{ validator: validatePhone, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }]
-        /*                    account: [
+      };
+      var validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.form.pass) {
+          callback(new Error('两次输入的密码不一致'));
+        } else {
+          callback();
+        }
+      };
+      var validatePhone = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入手机号'));
+        } else if (!Util.phoneReg.test(this.form.phone)) {
+          callback(new Error('请输入正确的手机号'));
+        } else {
+          callback();
+        }
+      };
+      // var validateEmail = (rule, value, callback) => {
+      // 	if (value === '') {
+      // 		callback(new Error('请输入邮箱'));
+      // 	} else if (!Util.emailReg.test(this.form.email)){
+      // 		callback(new Error('请输入正确的邮箱'));
+      // 	} else {
+      // 		callback();
+      // 	}
+      // };
+      // var validatePhone = (rule, value, callback) => {
+      // 	if (value === '') {
+      // 		callback(new Error('请输入手机号'));
+      // 	} else if (!Util.phoneReg.test(this.form.phone)){
+      // 		callback(new Error('请输入正确的手机号'));
+      // 	} else {
+      // 		callback();
+      // 	}
+      // };
+      // var validateCard = (rule, value, callback) => {
+      // 	if (value === '') {
+      // 		callback(new Error('请输入身份证号'));
+      // 	} else if (!Util.idCardReg.test(this.form.card)){
+      // 		callback(new Error('请输入正确的身份证号'));
+      // 	} else {
+      // 		callback();
+      // 	}
+      // };
+      return {
+        form: {
+          name: '',
+          account: '',
+          pass: '',
+          checkPass: '',
+          email: '',
+          phone: '',
+          card: '',
+          birth: '',
+          sex: '',
+        },
+        rules: {
+          name: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+          pass: [{ validator: validatePass, trigger: 'blur' }],
+          phone: [{ validator: validatePhone, trigger: 'blur' }],
+          checkPass: [{ validator: validatePass2, trigger: 'blur' }],
+          /*                    account: [
                         { required: true, message: '请输入账号', trigger: 'blur' }
                     ],
               
@@ -144,248 +134,248 @@ export default {
                     sex: [
                         { required: true, message: '请输入性别', trigger: 'blur' }
                     ]*/
-      }
-    };
-  },
-  methods: {
-    onSubmit(formName) {
-      const self = this;
-      self.$refs[formName].validate(valid => {
-        if (valid) {
-          //             self.$http.post('/api/add',self.form).then(function(response) {
-          // 	console.log(response);
-          // 	self.$router.push('/register-success');
-          // }).then(function(error) {
-          // 	console.log(error);
-          // })
+        },
+      };
+    },
+    methods: {
+      onSubmit(formName) {
+        const self = this;
+        self.$refs[formName].validate((valid) => {
+          if (valid) {
+            //             self.$http.post('/api/add',self.form).then(function(response) {
+            // 	console.log(response);
+            // 	self.$router.push('/register-success');
+            // }).then(function(error) {
+            // 	console.log(error);
+            // })
 
-          //   axios
-          // .get('/api/addUser', {
-          //   params: {
-          //     name: this.form.name,
-          //     pass: this.form.pass,
-          //   },
-          // })
-          // .then((res) => {
-          //   console.log(res)
-          //   if (res.data.state == 1) {
-          //     this.$router.push({ path: '/register-success' })
-          //     // window.location.reload()
-          //     this.$message({
-          //       message: '登陆成功',
-          //       type: 'success',
-          //     })
-          //   } else if (res.data.state !== 1) {
-          //     //this.$router.push({path: '/login'})
-          //     this.$message({
-          //       message: '账号或密码错误,请重新输入',
-          //       type: 'error',
-          //     })
-          //   }
-          // })
-          // 此处定义参数要为var，并且和对应的后端API接口对应属性
-          var userName = self.form.name;
-          var password = self.form.pass;
-          var phone = self.form.phone;
-          console.log(userName);
+            //   axios
+            // .get('/api/addUser', {
+            //   params: {
+            //     name: this.form.name,
+            //     pass: this.form.pass,
+            //   },
+            // })
+            // .then((res) => {
+            //   console.log(res)
+            //   if (res.data.state == 1) {
+            //     this.$router.push({ path: '/register-success' })
+            //     // window.location.reload()
+            //     this.$message({
+            //       message: '登陆成功',
+            //       type: 'success',
+            //     })
+            //   } else if (res.data.state !== 1) {
+            //     //this.$router.push({path: '/login'})
+            //     this.$message({
+            //       message: '账号或密码错误,请重新输入',
+            //       type: 'error',
+            //     })
+            //   }
+            // })
+            // 此处定义参数要为var，并且和对应的后端API接口对应属性
+            var userName = self.form.name;
+            var password = self.form.pass;
+            var phone = self.form.phone;
+            console.log(userName);
 
-          // 验证用户名部分有问题。但是已经可以使用重复姓名跳过
-          if (userName != "") {
-            axios.get("/api/user/register").then(res => {
-              console.log(res.data);
-              const length = res.data.length;
-              console.log(length);
-              const d1 = res.data;
-              for (var i = 0; i < length; i++) {
-                // &&that.inputPassword == d1[i].pwd
-                //打印出登录的账户是数据库中的第几个
-                if (self.form.name === d1[i].userName) {
-                  console.log(d1[i]);
-                  console.log("重复的用户名");
-                  this.$message({
-                    message: "重复的用户名",
-                    type: "error"
-                  });
-                  const loading = this.$loading({
-                    lock: true,
-                    text: "重新输入",
-                    spinner: "el-icon-loading",
-                    background: "rgba(0, 0, 0, 0.7)"
-                  });
-                  // 在注册界面停留两秒钟跳转登录界面
-                  setTimeout(() => {
-                    loading.close();
-                    this.$router.push({ path: "/register" });
-                    // res.end()
-                  }, 100);
-                } else {
-                  axios
-                    .post("/api/user/addUser", {
-                      userName,
-                      password,
-                      phone
-                    })
-                    .then(res => {
-                      console.log(res);
-                      if (res.data.code == 200) {
-                        const loading = this.$loading({
-                          lock: true,
-                          text: "等待跳转",
-                          spinner: "el-icon-loading",
-                          background: "rgba(0, 0, 0, 0.7)"
-                        });
-                        // 在注册界面停留两秒钟跳转登录界
-                        setTimeout(() => {
-                          loading.close();
-                          this.$router.push({ path: "/login" });
-                          // res.end()
-                        }, 2000);
-                      }
+            // 验证用户名部分有问题。但是已经可以使用重复姓名跳过
+            if (userName != '') {
+              axios.get('/api/user/register').then((res) => {
+                console.log(res.data);
+                const length = res.data.length;
+                console.log(length);
+                const d1 = res.data;
+                for (var i = 0; i < length; i++) {
+                  // &&that.inputPassword == d1[i].pwd
+                  //打印出登录的账户是数据库中的第几个
+                  if (self.form.name === d1[i].userName) {
+                    console.log(d1[i]);
+                    console.log('重复的用户名');
+                    this.$message({
+                      message: '重复的用户名',
+                      type: 'error',
                     });
+                    const loading = this.$loading({
+                      lock: true,
+                      text: '重新输入',
+                      spinner: 'el-icon-loading',
+                      background: 'rgba(0, 0, 0, 0.7)',
+                    });
+                    // 在注册界面停留两秒钟跳转登录界面
+                    setTimeout(() => {
+                      loading.close();
+                      this.$router.push({ path: '/register' });
+                      // res.end()
+                    }, 100);
+                  } else {
+                    axios
+                      .post('/api/user/addUser', {
+                        userName,
+                        password,
+                        phone,
+                      })
+                      .then((res) => {
+                        console.log(res);
+                        if (res.data.code == 200) {
+                          const loading = this.$loading({
+                            lock: true,
+                            text: '等待跳转',
+                            spinner: 'el-icon-loading',
+                            background: 'rgba(0, 0, 0, 0.7)',
+                          });
+                          // 在注册界面停留两秒钟跳转登录界
+                          setTimeout(() => {
+                            loading.close();
+                            this.$router.push({ path: '/login' });
+                            // res.end()
+                          }, 2000);
+                        }
+                      });
+                  }
+                  //     {
+                  //   axios
+                  //     .post('/api/user/addUser', {
+                  //       userName,
+                  //       password,
+                  //       phone,
+                  //     })
+                  //     .then((res) => {
+                  //       console.log('信息添加成功')
+                  //       // alert('信息添加成功')
+                  //       console.log(res.data)
+                  //       this.$message({
+                  //         message: '注册成功',
+                  //         type: 'success',
+                  //       })
+
+                  //       // const loading = this.$loading({
+                  //       //   lock: true,
+                  //       //   text: '注册成功即将进入登录界面',
+                  //       //   spinner: 'el-icon-loading',
+                  //       //   background: 'rgba(0, 0, 0, 0.7)',
+                  //       // })
+                  //       // // 在注册界面停留两秒钟跳转登录界面
+                  //       setTimeout(() => {
+                  //         loading.close()
+                  //         this.$router.push({ path: '/login' })
+                  //         // res.end()
+                  //       }, 2000)
+                  //     })
+                  //     .catch((err) => {
+                  //       console.log(err)
+                  //     })
+                  // }
+
+                  // if (res.data.state == 1) {
+                  //   this.$router.push({ path: '/login' })
+                  //   // window.location.reload()
+                  //   this.$message({
+                  //     message: '注册成功',
+                  //     type: 'success',
+                  //   })
+                  // } else if (res.data.state !== 1) {
+                  //   //this.$router.push({path: '/login'})
+                  //   this.$message({
+                  //     message: '用户名重复，请重新输入',
+                  //     type: 'error',
+                  //   })
+                  // }
                 }
-                //     {
-                //   axios
-                //     .post('/api/user/addUser', {
-                //       userName,
-                //       password,
-                //       phone,
-                //     })
-                //     .then((res) => {
-                //       console.log('信息添加成功')
-                //       // alert('信息添加成功')
-                //       console.log(res.data)
-                //       this.$message({
-                //         message: '注册成功',
-                //         type: 'success',
-                //       })
+              });
+            } else {
+              this.$message({
+                message: '请输入正确的用户名',
+                type: 'error',
+              });
+            }
 
-                //       // const loading = this.$loading({
-                //       //   lock: true,
-                //       //   text: '注册成功即将进入登录界面',
-                //       //   spinner: 'el-icon-loading',
-                //       //   background: 'rgba(0, 0, 0, 0.7)',
-                //       // })
-                //       // // 在注册界面停留两秒钟跳转登录界面
-                //       setTimeout(() => {
-                //         loading.close()
-                //         this.$router.push({ path: '/login' })
-                //         // res.end()
-                //       }, 2000)
-                //     })
-                //     .catch((err) => {
-                //       console.log(err)
-                //     })
-                // }
+            // else {
+            //   axios
+            //     .post('/api/user/addUser', {
+            //       userName,
+            //       password,
+            //       phone,
+            //     })
+            //     .then((res) => {
+            //       console.log('信息添加成功')
+            //       // alert('信息添加成功')
 
-                // if (res.data.state == 1) {
-                //   this.$router.push({ path: '/login' })
-                //   // window.location.reload()
-                //   this.$message({
-                //     message: '注册成功',
-                //     type: 'success',
-                //   })
-                // } else if (res.data.state !== 1) {
-                //   //this.$router.push({path: '/login'})
-                //   this.$message({
-                //     message: '用户名重复，请重新输入',
-                //     type: 'error',
-                //   })
-                // }
-              }
-            });
-          } else {
-            this.$message({
-              message: "请输入正确的用户名",
-              type: "error"
-            });
+            //       this.$message({
+            //         message: '注册成功',
+            //         type: 'success',
+            //       })
+
+            //       const loading = this.$loading({
+            //         lock: true,
+            //         text: '注册成功即将进入登录界面',
+            //         spinner: 'el-icon-loading',
+            //         background: 'rgba(0, 0, 0, 0.7)',
+            //       })
+            //       // 在注册界面停留两秒钟跳转登录界面
+            //       setTimeout(() => {
+            //         loading.close()
+            //         this.$router.push({ path: '/login' })
+            //         // res.end()
+            //       }, 2000)
+            //     })
+            //     .catch((err) => {
+            //       console.log(err)
+            //     })
+            // }
           }
+        });
+      },
+      resetForm(formName) {
+        const self = this;
+        self.$refs[formName].resetFields();
+      },
 
-          // else {
-          //   axios
-          //     .post('/api/user/addUser', {
-          //       userName,
-          //       password,
-          //       phone,
-          //     })
-          //     .then((res) => {
-          //       console.log('信息添加成功')
-          //       // alert('信息添加成功')
-
-          //       this.$message({
-          //         message: '注册成功',
-          //         type: 'success',
-          //       })
-
-          //       const loading = this.$loading({
-          //         lock: true,
-          //         text: '注册成功即将进入登录界面',
-          //         spinner: 'el-icon-loading',
-          //         background: 'rgba(0, 0, 0, 0.7)',
-          //       })
-          //       // 在注册界面停留两秒钟跳转登录界面
-          //       setTimeout(() => {
-          //         loading.close()
-          //         this.$router.push({ path: '/login' })
-          //         // res.end()
-          //       }, 2000)
-          //     })
-          //     .catch((err) => {
-          //       console.log(err)
-          //     })
-          // }
-        }
-      });
+      onCancle() {
+        this.$router.push('/login');
+      },
+      getDateTimes(str) {
+        var str = new Date(str);
+        return str;
+      },
     },
-    resetForm(formName) {
-      const self = this;
-      self.$refs[formName].resetFields();
-    },
-
-    onCancle() {
-      this.$router.push("/login");
-    },
-    getDateTimes(str) {
-      var str = new Date(str);
-      return str;
-    }
-  }
-};
+  };
 </script>
 
 <style scoped>
-.crumbs-register {
-  background-color: #324157;
-  height: 50px;
-  line-height: 50px;
-}
-.register-title {
-  line-height: 50px;
-  margin: 0 auto;
-  width: 50px;
-  font-size: 16px;
-}
-.a {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-.userContent {
-  width: 300px;
-  margin: 50px auto;
-  padding: 40px;
-  border-radius: 22px;
-  background: #1e323e;
-  box-shadow: #78a1bb 0px 0px 15px;
-  opacity: 0.7;
-}
-#img {
-  background: url("./img4.jpeg");
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  background-size: 100% 100%;
-}
-.select-sex {
-  width: 320px;
-}
+  .crumbs-register {
+    background-color: #324157;
+    height: 50px;
+    line-height: 50px;
+  }
+  .register-title {
+    line-height: 50px;
+    margin: 0 auto;
+    width: 50px;
+    font-size: 16px;
+  }
+  .a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  .userContent {
+    width: 300px;
+    margin: 50px auto;
+    padding: 40px;
+    border-radius: 22px;
+    background: #1e323e;
+    box-shadow: #78a1bb 0px 0px 15px;
+    opacity: 0.7;
+  }
+  #img {
+    background: url('./img4.jpeg');
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-size: 100% 100%;
+  }
+  .select-sex {
+    width: 320px;
+  }
 </style>

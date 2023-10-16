@@ -9,13 +9,10 @@ Vue.use(Router);
 
 */
 
-
 // export default new Router({
 //   routes: defaultRouter
 // })
 // export {defaultRouter, adminRouter}
-
-
 
 export default new Router({
   mode: 'history',
@@ -24,11 +21,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/login'
+      redirect: '/login',
     },
     {
       path: '/monitor',
-      component: resolve => require(['../components/common/Home.vue'], resolve),
+      component: (resolve) => require(['../components/common/Home.vue'], resolve),
 
       children: [
         {
@@ -36,63 +33,59 @@ export default new Router({
           // path: '/',
           // component: resolve => require(['../components/page/Readme.vue'], resolve)
           path: '/',
-          component: resolve => require(['../components/page/Monitor.vue'], resolve)
-
+          component: (resolve) => require(['../components/page/Monitor.vue'], resolve),
         },
         {
           path: '/upload',
-          component: resolve => require(['../components/page/Upload.vue'], resolve)       // Vue-Core-Image-Upload组件
+          component: (resolve) => require(['../components/page/Upload.vue'], resolve), // Vue-Core-Image-Upload组件
         },
         {
           path: '/monitor2',
-          component: resolve => require(['../components/page/Monitor2.vue'], resolve)       // Vue-Core-Image-Upload组件
+          component: (resolve) => require(['../components/page/Monitor2.vue'], resolve), // Vue-Core-Image-Upload组件
         },
         {
           path: '/test',
-          component: resolve => require(['../components/page/test.vue'], resolve)       // Vue-Core-Image-Upload组件
+          component: (resolve) => require(['../components/page/test.vue'], resolve), // Vue-Core-Image-Upload组件
         },
         {
           path: '/userCenter',
-          component: resolve => require(['../components/page/UserCenter.vue'], resolve)    // 拖拽列表组件 
+          component: (resolve) => require(['../components/page/UserCenter.vue'], resolve), // 拖拽列表组件
         },
         {
           path: '/modifyUser',
-          component: resolve => require(['../components/page/ModifyUser.vue'], resolve)
+          component: (resolve) => require(['../components/page/ModifyUser.vue'], resolve),
         },
         {
           path: '/modifyPassword',
-          component: resolve => require(['../components/page/ModifyPassword.vue'], resolve)
+          component: (resolve) => require(['../components/page/ModifyPassword.vue'], resolve),
         },
         //控制页面
         {
           path: '/control',
-          component: resolve => require(['../components/page/Control.vue'], resolve)
+          component: (resolve) => require(['../components/page/Control.vue'], resolve),
         },
         //数据监控页面
-
 
         //数据库显示界面
         {
           path: '/db',
-          component: resolve => require(['../components/page/Db.vue'], resolve),
-          isAutht: true
+          component: (resolve) => require(['../components/page/Db.vue'], resolve),
+          isAutht: true,
         },
         {
           path: '/db2',
-          component: resolve => require(['../components/page/Db2.vue'], resolve)
+          component: (resolve) => require(['../components/page/Db2.vue'], resolve),
         },
-
-      ]
+      ],
     },
     {
       path: '/register',
-      component: resolve => require(['../components/page/Register.vue'], resolve)
+      component: (resolve) => require(['../components/page/Register.vue'], resolve),
     },
 
     {
       path: '/login',
-      component: resolve => require(['../components/page/Login.vue'], resolve)
+      component: (resolve) => require(['../components/page/Login.vue'], resolve),
     },
-
-  ]
-})
+  ],
+});

@@ -1,9 +1,9 @@
 // node后端服务器
-const http = require("http");
-const badyParser = require("body-parser");
-const express = require("express");
-const userApi = require("./api/userApi");
-const DBHelper = require("./utils/DBHelper");
+const http = require('http');
+const badyParser = require('body-parser');
+const express = require('express');
+const userApi = require('./api/userApi');
+const DBHelper = require('./utils/DBHelper');
 
 let conn = new DBHelper().getConn();
 const port = 3000;
@@ -13,12 +13,12 @@ let server = http.createServer(app);
 app.use(badyParser.json());
 app.use(
   badyParser.urlencoded({
-    extended: false
-  })
+    extended: false,
+  }),
 );
 
 // 后端api路由
-app.use("/api/user", userApi);
+app.use('/api/v1', userApi);
 
 //开启监听方式1
 // app.listen(3000);
