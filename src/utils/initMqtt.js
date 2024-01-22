@@ -6,7 +6,7 @@ this.client= new initMqtt().connect()
 
 function initMqtt(options) {
   const { hostname, port, timeout, keepAlive, cleanSession, ssl, userName, password, path } = options || {};
-  this.hostname = hostname || 'www.ai0626.top';
+  this.hostname = hostname || 'mqtt.fancyzh.top';
   this.port = port || 8084;
   this.options = {
     clean: true, // 保留会话
@@ -14,7 +14,7 @@ function initMqtt(options) {
     reconnectPeriod: 500, // 重连时间间隔
     clientId: 'clientId-zwt6666',
     username: userName || 'admin',
-    password: password || '123456',
+    password: password || 'adminxxx',
     path: '/mqtt',
   };
   this.connectUrl = `wss://${this.hostname}:${this.port}`;

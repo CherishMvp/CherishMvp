@@ -1,8 +1,8 @@
 // 新增node服务。考虑到夜间休息的时候，无人看管。可以在发现危险的时候自动控制发送邮件提醒
 
-const MQTT_SERVICE = 'wss://www.ai0626.top:8084/mqtt';
-const MQTT_USERNAME = 'node-service';
-const MQTT_PASSWORD = '123';
+const MQTT_SERVICE = 'wss://mqtt.fancyzh.top:8084/mqtt';
+const MQTT_USERNAME = 'admin';
+const MQTT_PASSWORD = 'adminxxx';
 
 var email = require('./');
 const options = {

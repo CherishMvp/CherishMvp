@@ -7,10 +7,10 @@ class DBHelper {
   getConn() {
     let conn = mysql.createConnection({
       // 数据库连接配置
-      host: '112.74.101.210', // 新建数据库连接时的 主机名或ID地址 内容
-      user: 'cherish',
+      host: '127.0.0.1', // 新建数据库连接时的 主机名或ID地址 内容
+      user: 'root',
       database: 'user', // 数据库名
-      password: 'Qaz123plm', // root 密码
+      password: '123456', // root 密码
       port: '3306',
       // 设置以字符换的形式展示。不会出现时区少8小时问题。
       dateStrings: true,

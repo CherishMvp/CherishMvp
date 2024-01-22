@@ -7,13 +7,13 @@ export const MQTT_PASSWORD = '123' */
 //MQTT的配置
 //zwt
 //Monitor.vue
-export const MQTT_SERVICE = 'wss://www.ai0626.top:8084/mqtt';
-export const MQTT_USERNAME = '123qqq';
-export const MQTT_PASSWORD = '123';
+export const MQTT_SERVICE = 'wss://mqtt.fancyzh.top:8084/mqtt';
+export const MQTT_USERNAME = 'admin';
+export const MQTT_PASSWORD = 'adminxxx';
 //Control.vue
-export const MQTT_USERNAME2 = '123bbb';
-export const MQTT_PASSWORD2 = '123';
+export const MQTT_USERNAME2 = 'adminyy';
+export const MQTT_PASSWORD2 = 'adminyy';
 
 //Monitor2.vue
-export const MQTT_USERNAME3 = '123ccc';
-export const MQTT_PASSWORD3 = '123';
+export const MQTT_USERNAME3 = 'adminyy';
+export const MQTT_PASSWORD3 = 'adminyy';

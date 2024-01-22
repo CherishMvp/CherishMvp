@@ -1,6 +1,6 @@
-const MQTT_SERVICE = 'wss://www.ai0626.top:8084/mqtt';
-const MQTT_USERNAME = 'ttfffqqq';
-const MQTT_PASSWORD = '123';
+const MQTT_SERVICE = 'wss://mqtt.fancyzh.top:8084/mqtt';
+const MQTT_USERNAME = 'admin';
+const MQTT_PASSWORD = 'adminxxx';
 
 /*利用nodejs来实时订阅监听mqtt发来的环境信息；
 当发现异常的时候可以自动发送不同的预警邮件。

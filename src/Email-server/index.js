@@ -10,7 +10,7 @@ function sleep(ms) {
 
 async function sendMail() {
   //html 页面内容
-  const html = '<p>实验室环境异常！请登录小程序或PC端及时查看。</p><a href="https://www.ai0626.top/cherish">点击跳转</a>'; //页面内容
+  const html = '<p>实验室环境异常！请登录小程序或PC端及时查看。</p><a href="https://mqtt.fancyzh.top/cherish">点击跳转</a>'; //页面内容
 
   console.log(html);
   let transporter = nodemailer.createTransport({
