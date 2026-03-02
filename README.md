@@ -48,8 +48,6 @@
 <h3 align="left">Connect with me:</h3>
 <p align="left">
 <a href="https://twitter.com/cherishtao" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" alt="cherishtao" height="30" width="40" /></a>
-<a href="https://www.xiaohongshu.com/user/profile/659e191d000000002200be2b" target="blank"><img align="center" src="https://github.com/user-attachments/assets/d94eed22-2426-4413-895b-f68e7b6c4b7b" alt="小红书" height="30" width="40" /></a>
- 
 </p>
 
 
